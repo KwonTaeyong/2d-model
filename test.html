@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<!--스타일 시작-->
+<style>
+    body {
+        background: #e2e1e0;
+        text-align: center;
+    }
+
+    .prod {
+        background: #fff;
+        border-radius: 2px;
+        display: inline-block;
+        height: 150px;
+        margin: 1rem;
+        position: relative;
+        width: 150px;
+        cursor: pointer;
+    }
+
+    .card {
+        background: #fff;
+        border-radius: 2px;
+        display: inline-block;
+        height: 300px;
+        margin: 1rem;
+        position: relative;
+        width: 300px;
+    }
+
+    .card-1 {
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+        transition: all 0.3s cubic-bezier(.25, .8, .25, 1);
+    }
+
+    .card-2 {
+        box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+    }
+
+    .card-3 {
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+    }
+
+    .card-4 {
+        box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+    }
+
+    .card-5 {
+        box-shadow: 0 19px 38px rgba(0, 0, 0, 0.30), 0 15px 12px rgba(0, 0, 0, 0.22);
+    }
+
+    #mydiv {
+        position: absolute;
+        z-index: 9;
+        background-color: #f1f1f1;
+        text-align: center;
+        border: 1px solid #d3d3d3;
+    }
+
+    @import url('https://fonts.googleapis.com/css?family=Montserrat:400,500,600,700&display=swap');
+
+    .grid-wrapper {
+        --auto-grid-min-size: 16rem;
+        display: grid;
+        grid-gap: 2rem;
+        grid-template-columns: repeat(auto-fill, minmax(var(--auto-grid-min-size), 1fr));
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Montserrat', sans-serif;
+
+    }
+
+    .grid-wrapper li {
+        background-color: #ef4444;
+        color: #ffffff;
+        font-size: 24px;
+        list-style-type: none;
+        padding: 5rem 1rem;
+        text-align: center;
+        text-transform: capitalize;
+        font-weight: 600;
+    }
+
+    .main-container {
+        margin: 0 auto;
+        max-width: 1170px;
+        padding: 2rem 1rem;
+    }
+
+
+</style>
+<!--스타일 끝-->
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.12.4.min.js"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+</head>
+
+<!--바디 시작-->
+<body>
+<div style="cursor: move" id="mydiv">
+    <div style="background-color: cornflowerblue; cursor: pointer" id="card1" class="prod hit_div">
+        <h3 style="text-align: center; color: white; margin-top: 40%">제품</h3>
+    </div>
+</div>
+<div class="drag_div">
+    <div style="background-color: brown" id="card2" class="card card-1 hit_div">
+        <h1 style="text-align: center; color: white; margin-top: 40%">1번 렉</h1>
+    </div>
+</div>
+<div class="drag_div">
+    <div style="background-color: darkolivegreen" id="card3" class="card card-2 hit_div">
+        <h1 style="text-align: center; color: white; margin-top: 40%">2번 렉</h1>
+    </div>
+</div>
+<div class="drag_div">
+    <div style="background-color: cadetblue" id="card4" class="card card-3 hit_div">
+        <h1 style="text-align: center; color: white; margin-top: 40%">3번 렉</h1>
+    </div>
+</div>
+<div class="drag_div">
+    <div style="background-color: gold" id="card5" class="card card-4 hit_div">
+        <h1 style="text-align: center; color: white; margin-top: 40%">4번 렉</h1>
+    </div>
+</div>
+<div class="drag_div">
+    <div style="background-color: silver" id="card6" class="card card-5 hit_div">
+        <h1 style="text-align: center; color: white; margin-top: 40%">5번 렉</h1>
+    </div>
+</div>
+<section>
+    <div class="main-container">
+        <ul class="grid-wrapper">
+            <li>item 1</li>
+            <li>item 2</li>
+            <li>item 3</li>
+            <li>item 4</li>
+            <li>item 5</li>
+            <li>item 6</li>
+            <li>item 7</li>
+            <li>item 8</li>
+            <li>item 9</li>
+            <li>item 10</li>
+            <li>item 11</li>
+            <li>item 12</li>
+        </ul>
+    </div>
+</section>
+</body>
+</html>
+<!--바디 끝-->
+
+<!-- 스크립트 시작 -->
+<script>
+    $(".card").on({
+        "mouseover":function () {
+            $(this).css({'background-color':'white'})
+        }
+    })
+
+    //Make the DIV element draggagle:
+    dragElement(document.getElementById("mydiv"));
+
+    function dragElement(elmnt) {
+        var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+        if (document.getElementById(elmnt.id)) {
+            /* if present, the header is where you move the DIV from:*/
+            document.getElementById(elmnt.id).onmousedown = dragMouseDown;
+        } else {
+            /* otherwise, move the DIV from anywhere inside the DIV:*/
+            elmnt.onmousedown = dragMouseDown;
+        }
+
+        function dragMouseDown(e) {
+            e = e || window.event;
+            e.preventDefault();
+            // get the mouse cursor position at startup:
+            pos3 = e.clientX;
+            pos4 = e.clientY;
+            document.onmouseup = closeDragElement;
+            // call a function whenever the cursor moves:
+            document.onmousemove = elementDrag;
+        }
+
+        function elementDrag(e) {
+            e = e || window.event;
+            e.preventDefault();
+            // calculate the new cursor position:
+            pos1 = pos3 - e.clientX;
+            pos2 = pos4 - e.clientY;
+            pos3 = e.clientX;
+            pos4 = e.clientY;
+            // set the element's new position:
+            elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
+            elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+        }
+
+        function closeDragElement() {
+            /* stop moving when mouse button is released:*/
+            document.onmouseup = null;
+            document.onmousemove = null;
+        }
+    }
+</script>
+<!--스크립트 끝-->
